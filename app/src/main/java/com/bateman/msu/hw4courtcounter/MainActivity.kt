@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import com.bateman.msu.hw4courtcounter.databinding.ActivityMainBinding
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+
 
 //communication between ScoreViewModel and MainActivity =
 
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("MainActivity", "onCreate called")
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -28,6 +30,18 @@ class MainActivity : AppCompatActivity() {
         //updates UI with current viewModel data
         displayForTeamA(viewModel.scoreTeamA)
         displayForTeamB(viewModel.scoreTeamB)
+    }
+
+    //debug logs:
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MainActivity", "onPause called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MainActivity", "onResume called")
     }
 
     /**
@@ -95,7 +109,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun resetScore(v: View?) {
         viewModel.scoreTeamA = 0
-        viewModel.scoreTeamB = 0
+        viewModel.scoreTeamB = 0 //added viewModel
         displayForTeamA(viewModel.scoreTeamA)
         displayForTeamB(viewModel.scoreTeamB)
     }
